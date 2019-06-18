@@ -1,31 +1,45 @@
-// show pictures
-// var x = 0
+let choices = []
 
+const showImage = (id) => {
+  let element = document.getElementById(`${id}`)
+  Reference: 
+  https://stackoverflow.com/questions/23937923/javascript-function-onclick-must-click-twice-why-so
 
-function showImage(id) {
-  var x = document.getElementById(`${id}`);
-  if (x.style.display === "none") {
-    const newGirlImgSrc = ''
-    x.style.display = "block";
-  } else {
-    element.style.display = "none";
+  element.style.display = "block"; 
+  choices.push(element);
+
+  if(choices.length === 2){
+    comparingTwoCards()
   }
-  if (func(element) === true) {
-    let elementmatched = document.getElementById(`girl${id}`);
-    elementmatched.style.display = "block";
-  }
-  func(element);
 }
 
-const func = element => {
-  choices.push(element.src);
-  console.log(choices);
-  if (choices[0] === choices[1]) {
-    console.log(choices);
-    element.style.display = "none";
-    return true;
+const comparingTwoCards = () => {
+  // get the first and second cards
+  const firstCard = document.getElementById(`${choices[0].id}`)
+  const parentOfFirstCard =firstCard.parentNode
+  const secondCard = document.getElementById(`${choices[1].id}`)
+  const parentOfSecondCard =secondCard.parentNode
+
+  // compare two cards
+  if (choices[0].src === choices[1].src) {
+    firstCard.parentNode.style.pointerEvents = "none"
+    secondCard.parentNode.style.pointerEvents = "none"
+    setTimeout(() => {
+      const newPic = `<img id="girl1" class="girl" src="./girls/${firstCard.name}_girl.jpeg" alt="" />`
+
+      firstCard.parentNode.innerHTML = null
+      parentOfFirstCard.insertAdjacentHTML('beforeend', newPic);
+      
+      secondCard.parentNode.innerHTML = null
+      parentOfSecondCard.insertAdjacentHTML('beforeend', newPic);
+    }, 1000)
+    choices = []
   } else {
-    return false;
+    setTimeout(() => {
+      firstCard.style.display = "none"
+      secondCard.style.display = "none"
+    }, 400)
+    choices = []
   }
 };
 
