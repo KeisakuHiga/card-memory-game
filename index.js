@@ -16,22 +16,22 @@ const showImage = (id) => {
 const comparingTwoCards = () => {
   // get the first and second cards
   const firstCard = document.getElementById(`${choices[0].id}`)
-  const parentOfFirstCard =firstCard.parentNode
+  const firstParent =firstCard.parentNode
   const secondCard = document.getElementById(`${choices[1].id}`)
-  const parentOfSecondCard =secondCard.parentNode
+  const secondParent =secondCard.parentNode
 
   // compare two cards
   if (choices[0].src === choices[1].src) {
-    firstCard.parentNode.style.pointerEvents = "none"
-    secondCard.parentNode.style.pointerEvents = "none"
+    firstParent.style.pointerEvents = "none"
+    secondParent.style.pointerEvents = "none"
     setTimeout(() => {
       const newPic = `<img id="girl1" class="girl" src="./girls/${firstCard.name}_girl.jpeg" alt="" />`
 
-      firstCard.parentNode.innerHTML = null
-      parentOfFirstCard.insertAdjacentHTML('beforeend', newPic);
+      firstParent.innerHTML = null
+      firstParent.insertAdjacentHTML('beforeend', newPic);
       
-      secondCard.parentNode.innerHTML = null
-      parentOfSecondCard.insertAdjacentHTML('beforeend', newPic);
+      secondParent.innerHTML = null
+      secondParent.insertAdjacentHTML('beforeend', newPic);
     }, 1000)
     choices = []
   } else {
