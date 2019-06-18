@@ -1,4 +1,5 @@
 let choices = []
+let arrayOfCountries = ['australia', 'brazil', 'canada', 'china', 'denmark', 'france', 'japan', 'senegal', 'australia', 'brazil', 'canada', 'china', 'denmark', 'france', 'japan', 'senegal']
 
 const showImage = (id) => {
   let element = document.getElementById(`${id}`)
@@ -53,3 +54,15 @@ const startGame = () => {
     }
   }, 1000);
 };
+
+const createCards = (arrayOfCountries) => {
+  const cardContainer = document.querySelector('.card-container')
+  for (let i = 0, len = arrayOfCountries.length; i < len; i++) {
+    const htmlOfFlags = `
+    <div class="card-container" onclick="showImage(${i+1})">
+      <img id="${i+1}" class="flag" name="${arrayOfCountries[i]}" src="./flags/senegal.png" alt="" />
+    </div>
+    `
+    cardContainer.insertAdjacentHTML('beforeend', htmlOfFlags)
+  }
+}
