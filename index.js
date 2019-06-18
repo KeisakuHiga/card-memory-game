@@ -4,24 +4,22 @@ let choices = [];
 
 function showImage(id) {
   let element = document.getElementById(`${id}`);
+  choices.push(element.src);
+  // console.log(choices);
+  console.log(element.style.display);
   if (element.style.display === "none") {
     element.style.display = "block";
   } else {
     element.style.display = "none";
   }
-  if (func(element) === true) {
+  if (func() === true) {
     let elementmatched = document.getElementById(`girl${id}`);
     elementmatched.style.display = "block";
   }
-  func(element);
 }
 
-const func = element => {
-  choices.push(element.src);
-  console.log(choices);
+const func = () => {
   if (choices[0] === choices[1]) {
-    console.log(choices);
-    element.style.display = "none";
     return true;
   } else {
     return false;
