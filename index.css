@@ -1,0 +1,16 @@
+.parent {
+  margin: 0 auto;
+  width: 700px;
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.card-container {
+  margin: 10px;
+  height: 150px;
+  width: 150px;
+  color: grey;
+  background: saddlebrown;
+}
