@@ -1,6 +1,9 @@
-// hello k!
-
-const showImage = id => {
-  var elem = document.getElementById(`#${id}`);
-  elem.style.display = "block";
-};
+// show pictures
+function showImage(id) {
+  var x = document.getElementById(`${id}`);
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
