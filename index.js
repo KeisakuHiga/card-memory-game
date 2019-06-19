@@ -9,6 +9,8 @@ const showImage = (id) => {
   element.style.display = "block"; 
   choices.push(element);
 
+  element.style.pointerEvents = "none"
+  element.parentNode.style.pointerEvents = "none"
   if(choices.length === 2){
     comparingTwoCards()
   }
@@ -23,8 +25,6 @@ const comparingTwoCards = () => {
 
   // compare two cards
   if (choices[0].src === choices[1].src) {
-    firstParent.style.pointerEvents = "none"
-    secondParent.style.pointerEvents = "none"
     setTimeout(() => {
       const newPic = `<img id="girl1" class="girl" src="./girls/${firstCard.name}_girl.jpeg" alt="" />`
 
@@ -40,6 +40,11 @@ const comparingTwoCards = () => {
       firstCard.style.display = "none"
       secondCard.style.display = "none"
     }, 400)
+
+  firstCard.style.pointerEvents = "auto"
+  secondCard.style.pointerEvents = "auto"
+  firstParent.style.pointerEvents = "auto"
+  secondParent.style.pointerEvents = "auto"
     choices = []
   }
 };
