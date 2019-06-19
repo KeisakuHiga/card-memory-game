@@ -85,9 +85,8 @@ const comparingTwoCards = () => {
 };
 
 const startGame = () => {
-  const parentContainer = document.querySelector('.parent')
-  parentContainer.innerHTML = null
-  const startButton = document.querySelector('button')
+  // const parentContainer = document.querySelector('.parent')
+  // parentContainer.innerHTML = null
   let countdown = 240;
   setInterval(() => {
     countdown--;
@@ -98,28 +97,30 @@ const startGame = () => {
   }, 1000);
 };
 
+const startButton = document.querySelector('button')
 startButton.addEventListener('click', (event) => {
   event.preventDefault()
   createCards()
 })
 
-const createCards = () => {
-  for (let i = 0, len = arrayOfCountries.length ; i < len; i++) {
-    const arrayLen = arrayOfCountries.length
-    console.log(`${i+1}: ${arrayLen}`)
-    const randomNum = Math.floor(Math.random() * arrayLen)
-    
-    console.log(randomNum)
 
-    const htmlOfFlags = `
-    <div class="card-container" onclick="showImage(${i+1})">
-      <img id="${i+1}" class="flag" name="${arrayOfCountries[randomNum]}" src="./flags/${arrayOfCountries[randomNum]}.png" alt="" />
-    </div>
-    `
-    arrayOfCountries.splice(randomNum, 1 )
-    parentContainer.insertAdjacentHTML('beforeend', htmlOfFlags)
-  }
-};
+// const createCards = () => {
+//   for (let i = 0, len = arrayOfCountries.length ; i < len; i++) {
+//     const arrayLen = arrayOfCountries.length
+//     console.log(`${i+1}: ${arrayLen}`)
+//     const randomNum = Math.floor(Math.random() * arrayLen)
+    
+//     console.log(randomNum)
+
+//     const htmlOfFlags = `
+//     <div class="card-container" onclick="showImage(${i+1})">
+//       <img id="${i+1}" class="flag" name="${arrayOfCountries[randomNum]}" src="./flags/${arrayOfCountries[randomNum]}.png" alt="" />
+//     </div>
+//     `
+//     arrayOfCountries.splice(randomNum, 1 )
+//     parentContainer.insertAdjacentHTML('beforeend', htmlOfFlags)
+//   }
+// };
 
 // Request game history to sever and render the data as table
 const table = document.querySelector('table')
