@@ -30,10 +30,10 @@ app.get("/game", (req, res) => {
 
 // POST request to create a new game record
 app.post("/game", (req, res) => {
-  const { name, id, turns, time } = req.body;
-  // console.log(name, id, turns, time)
+  const { name, turns, time } = req.body;
+  // console.log(name, turns, time)
   entryModel
-    .create({ id, name, turns, time }) // talks to DB through mongoose
+    .create({ name, turns, time }) // talks to DB through mongoose
     .then(newGame => {
       res.json(newGame);
     })
