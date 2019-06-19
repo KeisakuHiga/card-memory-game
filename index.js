@@ -67,14 +67,19 @@ startButton.addEventListener('click', (event) => {
 })
 
 const createCards = () => {
-  for (let i = 0, len = arrayOfCountries.length; i < len; i++) {
-    const randomNum = Math.floor(Math.random() * len)
+  for (let i = 0, len = arrayOfCountries.length ; i < len; i++) {
+    const arrayLen = arrayOfCountries.length
+    console.log(`${i+1}: ${arrayLen}`)
+    const randomNum = Math.floor(Math.random() * arrayLen)
+    
+    console.log(randomNum)
+
     const htmlOfFlags = `
     <div class="card-container" onclick="showImage(${i+1})">
       <img id="${i+1}" class="flag" name="${arrayOfCountries[randomNum]}" src="./flags/${arrayOfCountries[randomNum]}.png" alt="" />
     </div>
     `
-    arrayOfCountries.splice(1, randomNum)
+    arrayOfCountries.splice(randomNum, 1 )
     parentContainer.insertAdjacentHTML('beforeend', htmlOfFlags)
   }
 }
