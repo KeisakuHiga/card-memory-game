@@ -121,7 +121,6 @@ const createCards = () => {
 };
 
 // Request game history to sever and render the data as table
-
 function showRanking() {
   // clear ranking
   const table = document.querySelector("table");
@@ -129,7 +128,8 @@ function showRanking() {
   const tHeadAndTBody = `
     <thead>
       <tr>
-        <th scope=“col”>#</th>
+        <th scope=“col”>Rank</th>
+        <td scope=“col”>ID</td>
         <td scope=“col”>Name</td>
         <td scope=“col”>Turns</td>
         <td scope=“col”>Time</td>
@@ -143,20 +143,24 @@ function showRanking() {
   console.log(window.location);
   fetch("/game")
     .then(res_promise => {
+      console.log(res_promise);
       return res_promise.json();
     })
     .then(data => {
-      console.log(data);
+      let counter = 1
       data.forEach(gameHistory => {
         const table = `
         <tr>
-          <th scope=“row”>${gameHistory.id}</th>
+          <th scope=“row”>${counter}</th>
+          <td>${gameHistory.id}</td>
           <td>${gameHistory.name}</td>
-          <td>${gameHistory.turns}</td>
-          <td>${gameHistory.time}</td>
+          <td>${gameHistory.turns} times</td>
+          <td>${gameHistory.time} seconds</td>
         </tr>
       `;
-        tBody.insertAdjacentHTML("beforeend", table);
+        tBody.insertAdjacentHTML("beforeend", table)
+        counter++
       });
     });
 }
+showRanking()

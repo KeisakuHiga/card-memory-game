@@ -29,9 +29,9 @@ app.get("/game", (req, res) => {
 });
 
 // POST request to create a new game record
-app.post("/results", (req, res) => {
+app.post("/game", (req, res) => {
   const { name, id, turns, time } = req.body;
-
+  // console.log(name, id, turns, time)
   entryModel
     .create({ id, name, turns, time }) // talks to DB through mongoose
     .then(newGame => {

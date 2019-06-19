@@ -15,7 +15,7 @@ const entryModel = new mongoose.Schema(
       required: false
     },
     time: {
-      type: Array,
+      type: Number,
       required: false
     }
   },
