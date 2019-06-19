@@ -1,3 +1,5 @@
+// const fetch = require("node-fetch");
+
 let choices = [];
 let arrayOfCountries = [
   "australia",
@@ -80,31 +82,11 @@ const comparingTwoCards = () => {
     alert("You win!");
     alert(`you took ${turns} turns`);
     console.log("win");
-
-    resultObj = {
-      id: 1,
-      turns: 10,
-      time: 120
-    };
-
-    axios
-      .post("/results", resultObj)
-      .then(function(response) {
-        console.log(response);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
   }
 };
 
 const startGame = () => {
-<<<<<<< HEAD
   playerid++;
-=======
-  // const parentContainer = document.querySelector('.parent')
-  // parentContainer.innerHTML = null
->>>>>>> d9c4e93f862a8fbb44a1c3dd945f3a178b40cb52
   let countdown = 240;
   setInterval(() => {
     countdown--;
@@ -117,7 +99,6 @@ const startGame = () => {
   return time;
 };
 
-<<<<<<< HEAD
 const parentContainer = document.querySelector(".parent");
 const startButton = document.querySelector("button");
 startButton.addEventListener("click", event => {
@@ -127,11 +108,7 @@ startButton.addEventListener("click", event => {
 const createCards = () => {
   for (let i = 0, len = arrayOfCountries.length; i < len; i++) {
     const arrayLen = arrayOfCountries.length;
-    console.log(`${i + 1}: ${arrayLen}`);
     const randomNum = Math.floor(Math.random() * arrayLen);
-
-    console.log(randomNum);
-
     const htmlOfFlags = `
     <div class="card-container" onclick="showImage(${i + 1})">
       <img id="${i + 1}" class="flag" name="${
@@ -143,65 +120,44 @@ const createCards = () => {
     parentContainer.insertAdjacentHTML("beforeend", htmlOfFlags);
   }
 };
-=======
-const startButton = document.querySelector('button')
-startButton.addEventListener('click', (event) => {
-  event.preventDefault()
-  createCards()
-})
-
-
-// const createCards = () => {
-//   for (let i = 0, len = arrayOfCountries.length ; i < len; i++) {
-//     const arrayLen = arrayOfCountries.length
-//     console.log(`${i+1}: ${arrayLen}`)
-//     const randomNum = Math.floor(Math.random() * arrayLen)
-    
-//     console.log(randomNum)
-
-//     const htmlOfFlags = `
-//     <div class="card-container" onclick="showImage(${i+1})">
-//       <img id="${i+1}" class="flag" name="${arrayOfCountries[randomNum]}" src="./flags/${arrayOfCountries[randomNum]}.png" alt="" />
-//     </div>
-//     `
-//     arrayOfCountries.splice(randomNum, 1 )
-//     parentContainer.insertAdjacentHTML('beforeend', htmlOfFlags)
-//   }
-// };
 
 // Request game history to sever and render the data as table
-const table = document.querySelector('table')
-async function showRanking() {
+
+function showRanking() {
   // clear ranking
-  table.innerHTML = null
+  const table = document.querySelector("table");
+  table.innerHTML = null;
   const tHeadAndTBody = `
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <td scope="col">Name</td>
-        <td scope="col">Turns</td>
-        <td scope="col">Time</td>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  `
-  table.insertAdjacentHTML('beforeend', tHeadAndTBody)
-  
-  const tBody = document.querySelector('tbody')
-  
-  const response = await fetch('/game');
-  const json = await response.json();
-  
-  json.forEach((gameHistory) => {
-    const data = `
-      <tr>
-        <th scope="row">${gameHistory.id}</th>
-        <td>${gameHistory.name}</td>
-        <td>${gameHistory.turns}</td>
-        <td>${gameHistory.time}</td>
-      </tr>
-    `
-    tBody.insertAdjacentHTML('beforeend', data)
-  })
+   <thead>
+     <tr>
+       <th scope=“col”>#</th>
+       <td scope=“col”>Name</td>
+       <td scope=“col”>Turns</td>
+       <td scope=“col”>Time</td>
+     </tr>
+   </thead>
+   <tbody></tbody>
+ `;
+  table.insertAdjacentHTML("beforeend", tHeadAndTBody);
+
+  const tBody = document.querySelector("tbody");
+  console.log(window.location);
+  fetch("/game")
+    .then(res_promise => {
+      return res_promise.json();
+    })
+    .then(data => {
+      console.log(data);
+      data.forEach(gameHistory => {
+        const table = `
+         <tr>
+           <th scope=“row”>${gameHistory.id}</th>
+           <td>${gameHistory.name}</td>
+           <td>${gameHistory.turns}</td>
+           <td>${gameHistory.time}</td>
+         </tr>
+       `;
+        tBody.insertAdjacentHTML("beforeend", table);
+      });
+    });
 }
->>>>>>> d9c4e93f862a8fbb44a1c3dd945f3a178b40cb52

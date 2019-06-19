@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="index.css" />
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Card Memory Game</title>
   </head>
@@ -15,45 +15,21 @@
         <h1>Country Card Memory Game</h1>
         <h3>Match the cards to win a prize</h3>
         <button onclick="startGame()">Start</button>
-        <button onclick="gethistory()">get history</button>
+        <button onclick="showRanking()">get history</button>
         <div id="timer"></div>
-      </div>
-      <div class="parent"></div>
-
-    <script src="index.js"></script>
-
         <label for="user-name">Your Name</label>
         <input type="text" name="user-name">
-        <button type="submit" onclick="startGame()">Start</button>
 
         <div class="game-ranking">
           <h3>Game Ranking</h3>
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <td scope="col">Name</td>
-                <td scope="col">Turns</td>
-                <td scope="col">Time</td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-              </tr>
-            </tbody>
-          </table>
+          <table class="table"></table>
         </div>
-        <div id="timer"></div>
+      </div>
+      <div class="parent"></div>
+
+  
+
+        
       </div>
       <div class="parent">
           <div class="card-container" onclick="showImage(1)">
