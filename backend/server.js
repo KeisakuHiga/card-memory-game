@@ -1,12 +1,15 @@
 const express = require("express");
-const app = express();
 const mongoose = require("mongoose");
-const PORT = 3000;
-require("dotenv").config();
-const mongoURI = process.env.MONGO_PROD;
 const entryModel = require("./model/entryModel");
-app.use(express.json());
 var cors = require("cors");
+require("dotenv").config();
+
+const app = express();
+const PORT = 3000;
+const mongoURI = process.env.MONGO_PROD_URI;
+
+// middleware
+app.use(express.json());
 app.use(cors());
 app.use("/", express.static("../frontend"));
 
@@ -27,7 +30,6 @@ app.get("/game", (req, res) => {
 
 // POST request to create a new game record
 app.post("/results", (req, res) => {
-  // const { id, turns, time } = result;
   const { name, id, turns, time } = req.body;
 
   entryModel
