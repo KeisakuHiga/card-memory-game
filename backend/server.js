@@ -15,14 +15,14 @@ app.use("/", express.static("../frontend"));
 
 mongoose
   .connect(mongoURI, { useNewUrlParser: true })
-  .then(console.log("connected to mongodb"));
+  .then(console.log("connected to MongoDB.Atlas..."));
 
 // GET request to get game records
 app.get("/game", (req, res) => {
   entryModel
     .find({})
     .then(allRecords => {
-      console.log(allRecords);
+      // console.log(allRecords);
       return res.json(allRecords);
     })
     .catch(err => err.json(err));
@@ -41,5 +41,5 @@ app.post("/game", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
+  console.log(`Listening on port ${PORT}...`);
 });

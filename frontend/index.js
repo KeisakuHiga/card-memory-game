@@ -1,7 +1,3 @@
-// import Axios from "axios";
-
-// const fetch = require("node-fetch");
-
 let choices = [];
 let arrayOfCountries = [
   "australia",
@@ -22,8 +18,12 @@ let arrayOfCountries = [
   "senegal"
 ];
 
-let turns = 0;
-let matches = 0;
+// changed based on the game level (basic:120, normal:60, hard:30)
+let timeLimit = 10
+
+// basic game data
+let turns = 0
+let matches = 0
 let timeTaken = 0
 let gameTimer = 0
 
@@ -98,13 +98,18 @@ const startGame = () => {
   gameTimer = setInterval(() => {
     timeTaken++;
     document.getElementById("timer").innerHTML = timeTaken;
-    if (timeTaken === 0) {
+    if (timeTaken === timeLimit) {
       stopGame()
       alert("Time is up!");
-      return showRanking()
+      let userName = document.querySelector('input[name="user-name"]').value
+      const gameData = {
+        name: userName,
+        turns: turns,
+        time: timeTaken
+      }
+      saveGameData(gameData)
     }
   }, 1000);
-  return timeTaken;
 };
 
 const parentContainer = document.querySelector(".parent");
@@ -116,6 +121,7 @@ startButton.addEventListener("click", event => {
 
 const stopGame = () => {
   clearInterval(gameTimer)
+  gameTimer = 0
 }
 const createCards = () => {
   for (let i = 0, len = arrayOfCountries.length; i < len; i++) {
@@ -179,5 +185,5 @@ showRanking()
 
 async function saveGameData(gameData) {
   const response = await axios.post('/game', gameData)
-  showRanking()
+  location.reload()
 }
