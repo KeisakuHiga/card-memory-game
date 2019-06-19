@@ -95,16 +95,26 @@ const startGame = () => {
   }, 1000);
 };
 
-const createCards = arrayOfCountries => {
-  const cardContainer = document.querySelector(".card-container");
-  for (let i = 0, len = arrayOfCountries.length; i < len; i++) {
+const parentContainer = document.querySelector('.parent')
+const startButton = document.querySelector('button')
+startButton.addEventListener('click', (event) => {
+  createCards()
+})
+
+const createCards = () => {
+  for (let i = 0, len = arrayOfCountries.length ; i < len; i++) {
+    const arrayLen = arrayOfCountries.length
+    console.log(`${i+1}: ${arrayLen}`)
+    const randomNum = Math.floor(Math.random() * arrayLen)
+    
+    console.log(randomNum)
+
     const htmlOfFlags = `
-    <div class="card-container" onclick="showImage(${i + 1})">
-      <img id="${i + 1}" class="flag" name="${
-      arrayOfCountries[i]
-    }" src="./flags/senegal.png" alt="" />
+    <div class="card-container" onclick="showImage(${i+1})">
+      <img id="${i+1}" class="flag" name="${arrayOfCountries[randomNum]}" src="./flags/${arrayOfCountries[randomNum]}.png" alt="" />
     </div>
-    `;
-    cardContainer.insertAdjacentHTML("beforeend", htmlOfFlags);
+    `
+    arrayOfCountries.splice(randomNum, 1 )
+    parentContainer.insertAdjacentHTML('beforeend', htmlOfFlags)
   }
 };
