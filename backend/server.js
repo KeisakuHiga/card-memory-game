@@ -6,6 +6,7 @@ require("dotenv").config();
 const mongoURI = process.env.MONGO_PROD;
 const entryModel = require("./model/entryModel");
 app.use(express.json());
+app.use(express.static('frontend'))
 let result = require("../frontend/index");
 console.log(result);
 
