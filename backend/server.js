@@ -6,14 +6,9 @@ require("dotenv").config();
 const mongoURI = process.env.MONGO_PROD;
 const entryModel = require("./model/entryModel");
 app.use(express.json());
-<<<<<<< HEAD
 var cors = require("cors");
 app.use(cors());
-=======
-app.use(express.static('../frontend'))
-let result = require("../frontend/index");
-console.log(result);
->>>>>>> d9c4e93f862a8fbb44a1c3dd945f3a178b40cb52
+app.use("/", express.static("../frontend"));
 
 mongoose
   .connect(mongoURI, { useNewUrlParser: true })
@@ -32,10 +27,8 @@ app.get("/game", (req, res) => {
 
 // POST request to create a new game record
 app.post("/results", (req, res) => {
-  const { id, turns, time } = result;
-  const { name } = req.body;
-
-  console.log(result);
+  // const { id, turns, time } = result;
+  const { name, id, turns, time } = req.body;
 
   entryModel
     .create({ id, name, turns, time }) // talks to DB through mongoose
