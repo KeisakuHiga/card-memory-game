@@ -30,7 +30,8 @@ const showImage = id => {
   if (element.style.display === "block") {
     element.disabled = "disabled";
   }
-
+  element.style.pointerEvents = "none";
+  element.parentNode.style.pointerEvents = "none";
   if (choices.length === 2) {
     comparingTwoCards();
   }
@@ -52,6 +53,7 @@ const comparingTwoCards = () => {
 
     firstParent.style.pointerEvents = "none";
     secondParent.style.pointerEvents = "none";
+
     setTimeout(() => {
       const newPic = `<img id="girl1" class="girl" src="./girls/${
         firstCard.name
@@ -71,12 +73,15 @@ const comparingTwoCards = () => {
     }, 400);
     choices = [];
   }
+  firstCard.style.pointerEvents = "auto";
+  secondCard.style.pointerEvents = "auto";
+  firstParent.style.pointerEvents = "auto";
+  secondParent.style.pointerEvents = "auto";
   if (matches === 8) {
     alert("You win!");
     alert(`you took ${turns} turns`);
     console.log("win");
   }
-  console.log(matches);
 };
 
 const startGame = () => {
