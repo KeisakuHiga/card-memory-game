@@ -6,8 +6,8 @@ require("dotenv").config();
 const mongoURI = process.env.MONGO_PROD;
 const entryModel = require("./model/entryModel");
 app.use(express.json());
-let result = require("../frontend/index");
-console.log(result);
+var cors = require("cors");
+app.use(cors());
 
 mongoose
   .connect(mongoURI, { useNewUrlParser: true })
