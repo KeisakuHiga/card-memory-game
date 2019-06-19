@@ -1,4 +1,5 @@
-# Card memory game test
+# Card memory game
+## Collaborator: Bradley Richardson
 
 ## Description
 
