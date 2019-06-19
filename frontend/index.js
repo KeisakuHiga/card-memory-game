@@ -1,3 +1,5 @@
+// import Axios from "axios";
+
 // const fetch = require("node-fetch");
 
 let choices = [];
@@ -19,14 +21,15 @@ let arrayOfCountries = [
   "japan",
   "senegal"
 ];
+
 let turns = 0;
 let matches = 0;
-let playerid = 1;
-// let timetaken = 240 - countdown;
+let timeTaken = 0
+let gameTimer = 0
 
 const showImage = id => {
   turns++;
-
+  
   let element = document.getElementById(`${id}`);
   element.style.display = "block";
   choices.push(element);
@@ -78,32 +81,42 @@ const comparingTwoCards = () => {
   firstParent.style.pointerEvents = "auto";
   secondParent.style.pointerEvents = "auto";
   if (matches === 8) {
+    stopGame()
     alert("You win!");
     alert(`you took ${turns} turns`);
-    console.log("win");
+    let userName = document.querySelector('input[name="user-name"]').value
+    const gameData = {
+      name: userName,
+      turns: turns,
+      time: timeTaken
+    }
+    saveGameData(gameData)
   }
 };
 
 const startGame = () => {
-  playerid++;
-  let countdown = 240;
-  setInterval(() => {
-    countdown--;
-    document.getElementById("timer").innerHTML = countdown;
-    if (countdown === 0) {
-      return alert("Time is up!");
+  gameTimer = setInterval(() => {
+    timeTaken++;
+    document.getElementById("timer").innerHTML = timeTaken;
+    if (timeTaken === 0) {
+      stopGame()
+      alert("Time is up!");
+      return showRanking()
     }
   }, 1000);
-  let time = 240 - countdown;
-  return time;
+  return timeTaken;
 };
 
 const parentContainer = document.querySelector(".parent");
 const startButton = document.querySelector("button");
 startButton.addEventListener("click", event => {
+  startGame()
   createCards();
 });
 
+const stopGame = () => {
+  clearInterval(gameTimer)
+}
 const createCards = () => {
   for (let i = 0, len = arrayOfCountries.length; i < len; i++) {
     const arrayLen = arrayOfCountries.length;
@@ -129,7 +142,6 @@ function showRanking() {
     <thead>
       <tr>
         <th scope=“col”>Rank</th>
-        <td scope=“col”>ID</td>
         <td scope=“col”>Name</td>
         <td scope=“col”>Turns</td>
         <td scope=“col”>Time</td>
@@ -140,27 +152,32 @@ function showRanking() {
   table.insertAdjacentHTML("beforeend", tHeadAndTBody);
 
   const tBody = document.querySelector("tbody");
-  console.log(window.location);
+  // console.log(window.location);
   fetch("/game")
     .then(res_promise => {
-      console.log(res_promise);
+      // console.log(res_promise);
       return res_promise.json();
     })
     .then(data => {
-      let counter = 1
-      data.forEach(gameHistory => {
+      const sortedData = data.sort((data1, data2) => {
+        return data1.time - data2.time
+      })
+      for (let i = 0; i < sortedData.length; i++) {
         const table = `
-        <tr>
-          <th scope=“row”>${counter}</th>
-          <td>${gameHistory.id}</td>
-          <td>${gameHistory.name}</td>
-          <td>${gameHistory.turns} times</td>
-          <td>${gameHistory.time} seconds</td>
-        </tr>
-      `;
-        tBody.insertAdjacentHTML("beforeend", table)
-        counter++
-      });
-    });
+          <tr>
+            <th scope=“row”>${i+1}</th>
+            <td>${sortedData[i].name}</td>
+            <td>${sortedData[i].turns} times</td>
+            <td>${sortedData[i].time} seconds</td>
+          </tr>
+        `
+      tBody.insertAdjacentHTML("beforeend", table)
+      }
+  })
 }
 showRanking()
+
+async function saveGameData(gameData) {
+  const response = await axios.post('/game', gameData)
+  showRanking()
+}
