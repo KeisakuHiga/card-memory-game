@@ -38,7 +38,6 @@ const showImage = id => {
   if (choices.length === 2) {
     comparingTwoCards();
   }
-  console.log(turns);
 };
 
 const comparingTwoCards = () => {
@@ -56,9 +55,9 @@ const comparingTwoCards = () => {
     secondParent.style.pointerEvents = "none";
 
     setTimeout(() => {
-      const newPic = `<img id="girl1" class="girl" src="./girls/${
+      const newPic = `<img id="girl1" class="girl" src="./answer/${
         firstCard.name
-      }_girl.jpeg" alt="" />`;
+      }.jpeg" alt="" />`;
 
       firstParent.innerHTML = null;
       firstParent.insertAdjacentHTML("beforeend", newPic);
@@ -128,16 +127,16 @@ function showRanking() {
   const table = document.querySelector("table");
   table.innerHTML = null;
   const tHeadAndTBody = `
-   <thead>
-     <tr>
-       <th scope=“col”>#</th>
-       <td scope=“col”>Name</td>
-       <td scope=“col”>Turns</td>
-       <td scope=“col”>Time</td>
-     </tr>
-   </thead>
-   <tbody></tbody>
- `;
+    <thead>
+      <tr>
+        <th scope=“col”>#</th>
+        <td scope=“col”>Name</td>
+        <td scope=“col”>Turns</td>
+        <td scope=“col”>Time</td>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  `;
   table.insertAdjacentHTML("beforeend", tHeadAndTBody);
 
   const tBody = document.querySelector("tbody");
@@ -150,13 +149,13 @@ function showRanking() {
       console.log(data);
       data.forEach(gameHistory => {
         const table = `
-         <tr>
-           <th scope=“row”>${gameHistory.id}</th>
-           <td>${gameHistory.name}</td>
-           <td>${gameHistory.turns}</td>
-           <td>${gameHistory.time}</td>
-         </tr>
-       `;
+        <tr>
+          <th scope=“row”>${gameHistory.id}</th>
+          <td>${gameHistory.name}</td>
+          <td>${gameHistory.turns}</td>
+          <td>${gameHistory.time}</td>
+        </tr>
+      `;
         tBody.insertAdjacentHTML("beforeend", table);
       });
     });
