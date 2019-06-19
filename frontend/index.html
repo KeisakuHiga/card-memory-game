@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Card Memory Game</title>
     <link rel="stylesheet" href="index.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <div class="wrapper">
@@ -13,10 +14,24 @@
         <h1>Country Card Memory Game</h1>
         <h3>Match the cards to win a prize</h3>
         <button onclick="startGame()">Start</button>
+        <button onclick="gethistory()">get history</button>
         <div id="timer"></div>
       </div>
       <div class="parent"></div>
-    </div>
-    <script src="index.js"></script>
+
+      <script>
+
+          const gethistory = async () => {
+        try {
+          return await axios.get('https://localhost:3000/game')
+        } catch (error) {
+          console.error(error)
+        }
+      }
+      console.log(gethistory());
+      </script>
+    <script src="index.js">
+
+    </script>
   </body>
 </html>

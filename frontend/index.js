@@ -19,6 +19,7 @@ let arrayOfCountries = [
 ];
 let turns = 0;
 let matches = 0;
+let playerid = 1;
 // let timetaken = 240 - countdown;
 
 const showImage = id => {
@@ -37,8 +38,6 @@ const showImage = id => {
   }
   console.log(turns);
 };
-
-const turnController = () => {};
 
 const comparingTwoCards = () => {
   // get the first and second cards
@@ -81,10 +80,26 @@ const comparingTwoCards = () => {
     alert("You win!");
     alert(`you took ${turns} turns`);
     console.log("win");
+
+    resultObj = {
+      id: 1,
+      turns: 10,
+      time: 120
+    };
+
+    axios
+      .post("/results", resultObj)
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 };
 
 const startGame = () => {
+  playerid++;
   let countdown = 240;
   setInterval(() => {
     countdown--;
@@ -93,28 +108,32 @@ const startGame = () => {
       return alert("Time is up!");
     }
   }, 1000);
+  let time = 240 - countdown;
+  return time;
 };
 
-const parentContainer = document.querySelector('.parent')
-const startButton = document.querySelector('button')
-startButton.addEventListener('click', (event) => {
-  createCards()
-})
+const parentContainer = document.querySelector(".parent");
+const startButton = document.querySelector("button");
+startButton.addEventListener("click", event => {
+  createCards();
+});
 
 const createCards = () => {
-  for (let i = 0, len = arrayOfCountries.length ; i < len; i++) {
-    const arrayLen = arrayOfCountries.length
-    console.log(`${i+1}: ${arrayLen}`)
-    const randomNum = Math.floor(Math.random() * arrayLen)
-    
-    console.log(randomNum)
+  for (let i = 0, len = arrayOfCountries.length; i < len; i++) {
+    const arrayLen = arrayOfCountries.length;
+    console.log(`${i + 1}: ${arrayLen}`);
+    const randomNum = Math.floor(Math.random() * arrayLen);
+
+    console.log(randomNum);
 
     const htmlOfFlags = `
-    <div class="card-container" onclick="showImage(${i+1})">
-      <img id="${i+1}" class="flag" name="${arrayOfCountries[randomNum]}" src="./flags/${arrayOfCountries[randomNum]}.png" alt="" />
+    <div class="card-container" onclick="showImage(${i + 1})">
+      <img id="${i + 1}" class="flag" name="${
+      arrayOfCountries[randomNum]
+    }" src="./flags/${arrayOfCountries[randomNum]}.png" alt="" />
     </div>
-    `
-    arrayOfCountries.splice(randomNum, 1 )
-    parentContainer.insertAdjacentHTML('beforeend', htmlOfFlags)
+    `;
+    arrayOfCountries.splice(randomNum, 1);
+    parentContainer.insertAdjacentHTML("beforeend", htmlOfFlags);
   }
 };
