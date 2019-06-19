@@ -41,10 +41,10 @@ const comparingTwoCards = () => {
       secondCard.style.display = "none"
     }, 400)
 
-  firstCard.style.pointerEvents = "auto"
-  secondCard.style.pointerEvents = "auto"
-  firstParent.style.pointerEvents = "auto"
-  secondParent.style.pointerEvents = "auto"
+    firstCard.style.pointerEvents = "auto"
+    secondCard.style.pointerEvents = "auto"
+    firstParent.style.pointerEvents = "auto"
+    secondParent.style.pointerEvents = "auto"
     choices = []
   }
 };
@@ -60,14 +60,21 @@ const startGame = () => {
   }, 1000);
 };
 
-const createCards = (arrayOfCountries) => {
-  const cardContainer = document.querySelector('.card-container')
+const parentContainer = document.querySelector('.parent')
+const startButton = document.querySelector('button')
+startButton.addEventListener('click', (event) => {
+  createCards()
+})
+
+const createCards = () => {
   for (let i = 0, len = arrayOfCountries.length; i < len; i++) {
+    const randomNum = Math.floor(Math.random() * len)
     const htmlOfFlags = `
     <div class="card-container" onclick="showImage(${i+1})">
-      <img id="${i+1}" class="flag" name="${arrayOfCountries[i]}" src="./flags/senegal.png" alt="" />
+      <img id="${i+1}" class="flag" name="${arrayOfCountries[randomNum]}" src="./flags/${arrayOfCountries[randomNum]}.png" alt="" />
     </div>
     `
-    cardContainer.insertAdjacentHTML('beforeend', htmlOfFlags)
+    arrayOfCountries.splice(1, randomNum)
+    parentContainer.insertAdjacentHTML('beforeend', htmlOfFlags)
   }
 }
