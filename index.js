@@ -1,51 +1,86 @@
-let choices = []
-let arrayOfCountries = ['australia', 'brazil', 'canada', 'china', 'denmark', 'france', 'japan', 'senegal', 'australia', 'brazil', 'canada', 'china', 'denmark', 'france', 'japan', 'senegal']
+let choices = [];
+let arrayOfCountries = [
+  "australia",
+  "brazil",
+  "canada",
+  "china",
+  "denmark",
+  "france",
+  "japan",
+  "senegal",
+  "australia",
+  "brazil",
+  "canada",
+  "china",
+  "denmark",
+  "france",
+  "japan",
+  "senegal"
+];
+let turns = 0;
+let matches = 0;
+// let timetaken = 240 - countdown;
 
-const showImage = (id) => {
-  let element = document.getElementById(`${id}`)
-  Reference: 
-  https://stackoverflow.com/questions/23937923/javascript-function-onclick-must-click-twice-why-so
+const showImage = id => {
+  turns++;
 
-  element.style.display = "block"; 
+  let element = document.getElementById(`${id}`);
+  element.style.display = "block";
   choices.push(element);
-
-  element.style.pointerEvents = "none"
-  element.parentNode.style.pointerEvents = "none"
-  if(choices.length === 2){
-    comparingTwoCards()
+  if (element.style.display === "block") {
+    element.disabled = "disabled";
   }
-}
+  element.style.pointerEvents = "none";
+  element.parentNode.style.pointerEvents = "none";
+  if (choices.length === 2) {
+    comparingTwoCards();
+  }
+  console.log(turns);
+};
+
+const turnController = () => {};
 
 const comparingTwoCards = () => {
   // get the first and second cards
-  const firstCard = document.getElementById(`${choices[0].id}`)
-  const firstParent =firstCard.parentNode
-  const secondCard = document.getElementById(`${choices[1].id}`)
-  const secondParent =secondCard.parentNode
+  const firstCard = document.getElementById(`${choices[0].id}`);
+  const firstParent = firstCard.parentNode;
+  const secondCard = document.getElementById(`${choices[1].id}`);
+  const secondParent = secondCard.parentNode;
 
   // compare two cards
   if (choices[0].src === choices[1].src) {
-    setTimeout(() => {
-      const newPic = `<img id="girl1" class="girl" src="./girls/${firstCard.name}_girl.jpeg" alt="" />`
+    matches++;
 
-      firstParent.innerHTML = null
-      firstParent.insertAdjacentHTML('beforeend', newPic);
-      
-      secondParent.innerHTML = null
-      secondParent.insertAdjacentHTML('beforeend', newPic);
-    }, 1000)
-    choices = []
+    firstParent.style.pointerEvents = "none";
+    secondParent.style.pointerEvents = "none";
+
+    setTimeout(() => {
+      const newPic = `<img id="girl1" class="girl" src="./girls/${
+        firstCard.name
+      }_girl.jpeg" alt="" />`;
+
+      firstParent.innerHTML = null;
+      firstParent.insertAdjacentHTML("beforeend", newPic);
+
+      secondParent.innerHTML = null;
+      secondParent.insertAdjacentHTML("beforeend", newPic);
+    }, 1000);
+    choices = [];
   } else {
     setTimeout(() => {
-      firstCard.style.display = "none"
-      secondCard.style.display = "none"
-    }, 400)
-
-    firstCard.style.pointerEvents = "auto"
-    secondCard.style.pointerEvents = "auto"
-    firstParent.style.pointerEvents = "auto"
-    secondParent.style.pointerEvents = "auto"
-    choices = []
+      firstCard.style.display = "none";
+      secondCard.style.display = "none";
+    }, 400);
+    choices = [];
+  }
+  firstCard.style.pointerEvents = "auto";
+  secondCard.style.pointerEvents = "auto";
+  firstParent.style.pointerEvents = "auto";
+  secondParent.style.pointerEvents = "auto";
+  if (matches === 8) {
+    alert("You win!");
+    alert(`you took ${turns} turns`);
+    console.log("win");
   }
 };
 
@@ -82,4 +117,4 @@ const createCards = () => {
     arrayOfCountries.splice(randomNum, 1 )
     parentContainer.insertAdjacentHTML('beforeend', htmlOfFlags)
   }
-}
+};
