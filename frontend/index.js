@@ -99,7 +99,12 @@ const comparingTwoCards = () => {
 };
 
 const startGame = () => {
+<<<<<<< HEAD
   playerid++;
+=======
+  // const parentContainer = document.querySelector('.parent')
+  // parentContainer.innerHTML = null
+>>>>>>> d9c4e93f862a8fbb44a1c3dd945f3a178b40cb52
   let countdown = 240;
   setInterval(() => {
     countdown--;
@@ -112,6 +117,7 @@ const startGame = () => {
   return time;
 };
 
+<<<<<<< HEAD
 const parentContainer = document.querySelector(".parent");
 const startButton = document.querySelector("button");
 startButton.addEventListener("click", event => {
@@ -137,3 +143,65 @@ const createCards = () => {
     parentContainer.insertAdjacentHTML("beforeend", htmlOfFlags);
   }
 };
+=======
+const startButton = document.querySelector('button')
+startButton.addEventListener('click', (event) => {
+  event.preventDefault()
+  createCards()
+})
+
+
+// const createCards = () => {
+//   for (let i = 0, len = arrayOfCountries.length ; i < len; i++) {
+//     const arrayLen = arrayOfCountries.length
+//     console.log(`${i+1}: ${arrayLen}`)
+//     const randomNum = Math.floor(Math.random() * arrayLen)
+    
+//     console.log(randomNum)
+
+//     const htmlOfFlags = `
+//     <div class="card-container" onclick="showImage(${i+1})">
+//       <img id="${i+1}" class="flag" name="${arrayOfCountries[randomNum]}" src="./flags/${arrayOfCountries[randomNum]}.png" alt="" />
+//     </div>
+//     `
+//     arrayOfCountries.splice(randomNum, 1 )
+//     parentContainer.insertAdjacentHTML('beforeend', htmlOfFlags)
+//   }
+// };
+
+// Request game history to sever and render the data as table
+const table = document.querySelector('table')
+async function showRanking() {
+  // clear ranking
+  table.innerHTML = null
+  const tHeadAndTBody = `
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <td scope="col">Name</td>
+        <td scope="col">Turns</td>
+        <td scope="col">Time</td>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  `
+  table.insertAdjacentHTML('beforeend', tHeadAndTBody)
+  
+  const tBody = document.querySelector('tbody')
+  
+  const response = await fetch('/game');
+  const json = await response.json();
+  
+  json.forEach((gameHistory) => {
+    const data = `
+      <tr>
+        <th scope="row">${gameHistory.id}</th>
+        <td>${gameHistory.name}</td>
+        <td>${gameHistory.turns}</td>
+        <td>${gameHistory.time}</td>
+      </tr>
+    `
+    tBody.insertAdjacentHTML('beforeend', data)
+  })
+}
+>>>>>>> d9c4e93f862a8fbb44a1c3dd945f3a178b40cb52
